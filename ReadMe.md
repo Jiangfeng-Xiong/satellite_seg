@@ -6,7 +6,7 @@ python版本：python2.7
 依赖库：pytorch,torchvision,[visdom](http://github.com/facebookresearch/visdom)，[pydensecrf](http://github.com/lucasb-eyer/pydensecrf)...
 
 # 0.Overview
-* 训练模型: 基础模型DenseNet121为基础网络，PSPNet作为分割的模型
+* DenseNet121为基础网络，PSPNet作为分割的模型，多尺度训练/测试，CRF后处理等
 * 训练数据集：
 
 	* 初赛训练数据s1
@@ -36,6 +36,6 @@ run_train.sh 根据Overview里面的模型设置，更改train_dir选择对应�
 
 # 3.测试 & Vote
 
-* run_test.sh  更改model_name选择对应的模型测试,在每个生成的结果目录下执行./run_vote.sh
-* run_vote.sh  同一模型的不同epoch进行投票
+* run_test.sh  更改model_name选择对应的模型测试
+* run_vote.sh  更改model_name,对同一模型的不同epoch测试结果进行投票，得到该单模型结果
 * ./submit.sh  每个模型的测试目录 use_crf（e.g. ./submit.sh results/pspnet-densenet-s1s2-crf2/vote 1）
