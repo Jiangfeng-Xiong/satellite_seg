@@ -14,16 +14,23 @@ psp_models = {
     'resnet152': lambda: PSPNet(sizes=(1, 2, 3, 6), psp_size=2048, deep_features_size=1024, backend='resnet152')
 }
 
+def get_instance(name):
+    return {
+            'fcn32s': fcn32s,
+            'fcn8s': fcn8s,
+            'fcn16s': fcn16s,
+            'segnet': segnet,
+        }[name]
 
 def get_model(name, n_classes):
-
+    fmodel = get_instance(name)
     if name in ['fcn32s', 'fcn16s', 'fcn8s']:
-        model = model(n_classes=n_classes)
+        model = fmodel(n_classes=n_classes)
         vgg16 = models.vgg16(pretrained=True)
         model.init_vgg16_params(vgg16)
 
     elif name == 'segnet':
-        model = model(n_classes=n_classes,
+        model = fmodel(n_classes=n_classes,
                       is_unpooling=True)
         vgg16 = models.vgg16(pretrained=True)
         model.init_vgg16_params(vgg16)
