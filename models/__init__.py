@@ -23,13 +23,14 @@ def get_instance(name):
         }[name]
 
 def get_model(name, n_classes):
-    fmodel = get_instance(name)
     if name in ['fcn32s', 'fcn16s', 'fcn8s']:
+        fmodel = get_instance(name)
         model = fmodel(n_classes=n_classes)
         vgg16 = models.vgg16(pretrained=True)
         model.init_vgg16_params(vgg16)
 
     elif name == 'segnet':
+        fmodel = get_instance(name)
         model = fmodel(n_classes=n_classes,
                       is_unpooling=True)
         vgg16 = models.vgg16(pretrained=True)
